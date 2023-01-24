@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-const backgroundColor = Color(0xFF181818);
+import 'photo_list_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -8,7 +7,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -16,7 +14,6 @@ class LoginPage extends StatelessWidget {
             const Text(
               'PrintIt',
               style: TextStyle(
-                color: Colors.white,
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
               ),
@@ -27,7 +24,6 @@ class LoginPage extends StatelessWidget {
             const Text(
               'Login',
               style: TextStyle(
-                color: Colors.white,
                 fontSize: 20,
               ),
             ),
@@ -90,7 +86,12 @@ class LoginPage extends StatelessWidget {
               height: 48,
               child: ElevatedButton(
                 onPressed: () {
-                  // handle login/registration
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PhotoListPage(),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
@@ -100,7 +101,7 @@ class LoginPage extends StatelessWidget {
                 child: const Text(
                   'Next',
                   style: TextStyle(
-                    color: backgroundColor,
+                    color: Color(0xff303030),
                     fontSize: 16,
                   ),
                 ),
