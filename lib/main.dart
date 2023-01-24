@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:printit/screens/photo_list_page.dart';
+import 'package:printit/screens/login_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const PrintItApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class PrintItApp extends StatelessWidget {
+  const PrintItApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'PrintIt',
       theme: ThemeData.dark(),
-      home: const PhotoListPage(),
+      home: const LoginPage(),
     );
   }
 }

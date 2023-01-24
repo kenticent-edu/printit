@@ -75,7 +75,7 @@ class _PhotoListPageState extends State<PhotoListPage> {
           return Card(
             margin: const EdgeInsets.all(8.0),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(10.0),
               child: Row(
                 children: <Widget>[
                   Expanded(
