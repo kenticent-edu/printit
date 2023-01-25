@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-enum PaperType { glossy, matte }
+import '../models/photo.dart';
 
 class PaperTypeRadioButton extends StatelessWidget {
   final String title;

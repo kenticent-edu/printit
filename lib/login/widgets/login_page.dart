@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:printit/screens/photo_list_page.dart';
+import 'package:printit/photo_list/widgets/photo_list_page.dart';
 import '../bloc/login_bloc.dart';
 
 class LoginPage extends StatelessWidget {
@@ -13,7 +13,7 @@ class LoginPage extends StatelessWidget {
       child: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.status == Status.success) {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: ((context) => const PhotoListPage())),
             );
