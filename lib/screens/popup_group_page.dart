@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:printit/login/widgets/app_buttons.dart';
+import 'package:printit/screens/payment_screen.dart';
 
 void showBottomGroupsPage(context) {
   showModalBottomSheet<void>(
@@ -45,8 +46,9 @@ void showBottomGroupsPage(context) {
               const SizedBox(height: 14),
               AppButtons.firstGroupButton,
               const SizedBox(height: 227),
-              AppButtons.proceedButton
-            ]),
+              //AppButtons.proceedButton,
+              AppButtons().proceedButtonFunction(context)
+              ])
           ));
     },
   );
