@@ -92,3 +92,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/montserrat/Montserrat-Regular.ttf
+        - asset: assets/fonts/montserrat/Montserrat-Italic.ttf
+        - asset : assets/fonts/montserrat/Montserrat-Regular.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter/Inter-Regular.otf
