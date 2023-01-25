@@ -13,7 +13,7 @@ class LoginPage extends StatelessWidget {
       child: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state.status == Status.success) {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: ((context) => const PhotoListPage())),
             );
