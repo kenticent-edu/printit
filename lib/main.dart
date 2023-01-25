@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:printit/screens/login_page.dart';
+import 'package:printit/login/widgets/login_page.dart';
 
 void main() {
   runApp(const PrintItApp());
