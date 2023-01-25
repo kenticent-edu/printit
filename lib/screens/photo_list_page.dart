@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:printit/screens/popup_group_page.dart';
 import 'package:printit/widgets/paper_type_radio_button.dart';
 import 'dart:io';
 
@@ -17,9 +18,12 @@ class _PhotoListPageState extends State<PhotoListPage> {
   final List<PaperType> _paperTypes = [];
   final List<bool> _isBlackAndWhite = [];
   final _picker = ImagePicker();
+  int _selectedIndex = 0;
+  bool _photoIsChosen = false;
 
   Future<void> _addPhoto() async {
     final image = await _picker.pickImage(source: ImageSource.gallery);
+    _photoIsChosen = true;
     if (image != null) {
       setState(() {
         _photoPaths.add(image.path);
@@ -37,6 +41,15 @@ class _PhotoListPageState extends State<PhotoListPage> {
     });
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      if (index == 1) {
+        _addPhoto();
+      }
+      _selectedIndex = index;
+    });
+  }
+
   void _decrementQuantity(int index) {
     if (_photoQuantities[index] != 0) {
       setState(() {
@@ -50,6 +63,25 @@ class _PhotoListPageState extends State<PhotoListPage> {
       _photoFormats[index] = newFormat;
     });
   }
+
+  Widget _buildNextButton(context) {
+    return (_photoIsChosen != false) ? Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        
+        children: [
+          MaterialButton(onPressed: () => showBottomGroupsPage(context),
+          
+          minWidth: 167,
+          height: 48,
+          color: const Color(0xFF007AFF),
+          textColor: Colors.white,
+          child: const Text('Next', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),),
+          ),
+        ],
+      ): Row();
+  }
+
+  
 
   void _changePaperType(int index, PaperType newPaperType) {
     setState(() {
@@ -171,10 +203,32 @@ class _PhotoListPageState extends State<PhotoListPage> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _addPhoto,
-        child: const Icon(Icons.add_a_photo),
+      floatingActionButton: _buildNextButton(context),
+      
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+        child: 
+        ClipRRect(borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        child: BottomNavigationBar(
+          backgroundColor: const Color(0xFF424242),
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.white,
+          selectedFontSize: 0,
+          onTap: _onItemTapped,
+          iconSize: 32,
+          items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.grid_view_rounded), label: "grid"),
+          BottomNavigationBarItem(icon: Icon(Icons.add_circle_outline), label: "add_photo"),
+          BottomNavigationBarItem(icon: Icon(Icons.person_2_rounded), label: "profile"),
+        ]))
+        
       ),
+
     );
   }
 }
+
+
+
+
+

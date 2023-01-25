@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:printit/login/widgets/app_buttons.dart';
 
-class BottomGroupsScreen extends StatelessWidget {
-  const BottomGroupsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      child: const Text('FutureNExtButton'),
-      onPressed: () {
+void showBottomGroupsPage(context) {
         showModalBottomSheet<void>(
           isScrollControlled: true,
           context: context,
@@ -47,45 +41,13 @@ class BottomGroupsScreen extends StatelessWidget {
                           fontSize: 18),
                     ),
                     const SizedBox(height: 31),
-                    MaterialButton(
-                      onPressed: () => null,
-                      minWidth: double.infinity,
-                      color: Colors.white,
-                      textColor: Colors.black,
-                      height: 48,
-                      child: const Text('Create a new group'),
-                    ),
+                    AppButtons.createNewGroupButton,
                     const SizedBox(height: 14),
-                    Container(
-                      height: 48,
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [Color(0xFFFF0566), Colors.black],
-                        ),
-                      ),
-                      child: MaterialButton(
-                        onPressed: () => null,
-                        minWidth: double.infinity,
-                        textColor: Colors.white,
-                        child: const Text('Wedding photos   7/35'),
-                      ),
-                    ),
+                    AppButtons.firstGroupButton,
                     const SizedBox(height: 227),
-                    MaterialButton(
-                      onPressed: () => null,
-                      minWidth: double.infinity,
-                      color: const Color(0xFF007AFF),
-                      textColor: Colors.white,
-                      height: 48,
-                      child: const Text('Proceed immediately'),
-                    ),
+                    AppButtons.proceedButton
                   ]),
                 ));
           },
         );
-      },
-    );
-  }
 }
