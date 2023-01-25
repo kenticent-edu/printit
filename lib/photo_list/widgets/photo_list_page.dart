@@ -31,11 +31,13 @@ class _PhotoListPageState extends State<PhotoListPage> {
   }
 
   void _decrementQuantity(int index) {
-    if (_photos[index].quantity != 0) {
-      setState(() {
+    setState(() {
+      if (_photos[index].quantity == 1) {
+        _photos.removeAt(index);
+      } else {
         _photos[index].quantity--;
-      });
-    }
+      }
+    });
   }
 
   void _changeFormat(int index, String newFormat) {
@@ -142,7 +144,9 @@ class _PhotoListPageState extends State<PhotoListPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             IconButton(
-                              icon: const Icon(Icons.remove),
+                              icon: Icon((_photos[index].quantity == 1)
+                                  ? Icons.remove_shopping_cart
+                                  : Icons.remove),
                               onPressed: () => _decrementQuantity(index),
                             ),
                             Text("Quantity: ${_photos[index].quantity}"),
