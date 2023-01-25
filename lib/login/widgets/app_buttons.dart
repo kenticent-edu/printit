@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:printit/screens/payment_screen.dart';
 
 class AppButtons {
   static MaterialButton createNewGroupButton = MaterialButton(
@@ -35,4 +36,18 @@ class AppButtons {
     height: 48,
     child: const Text('Proceed immediately'),
   );
+
+  MaterialButton proceedButtonFunction(BuildContext context) {
+    return MaterialButton(
+      onPressed: () {Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const PaymentPage()),);},
+      minWidth: double.infinity,
+      color: const Color(0xFF007AFF),
+      textColor: Colors.white,
+      height: 48,
+      child: const Text('Proceed immediately'),
+      );
+  }
+  
+
 }
