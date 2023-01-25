@@ -1,7 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:printit/widgets/paper_type_radio_button.dart';
-import 'dart:io';
+import 'package:printit/page_list/widgets/paper_type_radio_button.dart';
+import '../models/photo.dart';
 
 class PhotoListPage extends StatefulWidget {
   const PhotoListPage({super.key});
@@ -11,55 +12,47 @@ class PhotoListPage extends StatefulWidget {
 }
 
 class _PhotoListPageState extends State<PhotoListPage> {
-  final List<String> _photoPaths = [];
-  final List<int> _photoQuantities = [];
-  final List<String> _photoFormats = [];
-  final List<PaperType> _paperTypes = [];
-  final List<bool> _isBlackAndWhite = [];
+  final List<Photo> _photos = [];
   final _picker = ImagePicker();
 
   Future<void> _addPhoto() async {
     final image = await _picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
-        _photoPaths.add(image.path);
-        _photoQuantities.add(1);
-        _photoFormats.add("9x13");
-        _paperTypes.add(PaperType.glossy);
-        _isBlackAndWhite.add(false);
+        _photos.add(Photo(image.path));
       });
     }
   }
 
   void _incrementQuantity(int index) {
     setState(() {
-      _photoQuantities[index]++;
+      _photos[index].quantity++;
     });
   }
 
   void _decrementQuantity(int index) {
-    if (_photoQuantities[index] != 0) {
+    if (_photos[index].quantity != 0) {
       setState(() {
-        _photoQuantities[index]--;
+        _photos[index].quantity--;
       });
     }
   }
 
   void _changeFormat(int index, String newFormat) {
     setState(() {
-      _photoFormats[index] = newFormat;
+      _photos[index].format = newFormat;
     });
   }
 
   void _changePaperType(int index, PaperType newPaperType) {
     setState(() {
-      _paperTypes[index] = newPaperType;
+      _photos[index].paperType = newPaperType;
     });
   }
 
   void _changeIsBlackAndWhite(int index, bool newIsBlackAndWhite) {
     setState(() {
-      _isBlackAndWhite[index] = newIsBlackAndWhite;
+      _photos[index].isBlackAndWhite = newIsBlackAndWhite;
     });
   }
 
@@ -70,7 +63,7 @@ class _PhotoListPageState extends State<PhotoListPage> {
         title: const Text('Photo List'),
       ),
       body: ListView.builder(
-        itemCount: _photoPaths.length,
+        itemCount: _photos.length,
         itemBuilder: (BuildContext context, int index) {
           return Card(
             margin: const EdgeInsets.all(8.0),
@@ -81,7 +74,7 @@ class _PhotoListPageState extends State<PhotoListPage> {
                   Expanded(
                     flex: 4,
                     child: Image.file(
-                      File(_photoPaths[index]),
+                      File(_photos[index].path),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -89,14 +82,13 @@ class _PhotoListPageState extends State<PhotoListPage> {
                   Expanded(
                     flex: 5,
                     child: Column(
-                      mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             const Text('Format'),
                             DropdownButton<String>(
-                              value: _photoFormats[index],
+                              value: _photos[index].format,
                               onChanged: (String? newFormat) {
                                 _changeFormat(index, newFormat!);
                               },
@@ -121,7 +113,7 @@ class _PhotoListPageState extends State<PhotoListPage> {
                             PaperTypeRadioButton(
                               title: 'Glossy',
                               value: PaperType.glossy,
-                              groupValue: _paperTypes[index],
+                              groupValue: _photos[index].paperType,
                               onChanged: (PaperType? value) {
                                 _changePaperType(index, value!);
                               },
@@ -130,7 +122,7 @@ class _PhotoListPageState extends State<PhotoListPage> {
                             PaperTypeRadioButton(
                               title: 'Matte',
                               value: PaperType.matte,
-                              groupValue: _paperTypes[index],
+                              groupValue: _photos[index].paperType,
                               onChanged: (PaperType? value) {
                                 _changePaperType(index, value!);
                               },
@@ -141,7 +133,7 @@ class _PhotoListPageState extends State<PhotoListPage> {
                           dense: true,
                           contentPadding: const EdgeInsets.all(0.0),
                           title: const Text('Black and White'),
-                          value: _isBlackAndWhite[index],
+                          value: _photos[index].isBlackAndWhite,
                           onChanged: (bool? value) {
                             _changeIsBlackAndWhite(index, value!);
                           },
@@ -150,13 +142,11 @@ class _PhotoListPageState extends State<PhotoListPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             IconButton(
-                              padding: const EdgeInsets.all(0.0),
                               icon: const Icon(Icons.remove),
                               onPressed: () => _decrementQuantity(index),
                             ),
-                            Text("Quantity: ${_photoQuantities[index]}"),
+                            Text("Quantity: ${_photos[index].quantity}"),
                             IconButton(
-                              padding: const EdgeInsets.all(0.0),
                               icon: const Icon(Icons.add),
                               onPressed: () => _incrementQuantity(index),
                             ),
