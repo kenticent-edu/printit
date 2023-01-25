@@ -11,9 +11,6 @@ class PrintItApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'PrintIt',
-      theme: ThemeData.dark(),
-      home: const LoginPage(),
-    );
+        title: 'PrintIt', theme: ThemeData.dark(), home: const LoginPage());
   }
 }
